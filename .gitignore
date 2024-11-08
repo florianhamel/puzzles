@@ -8,8 +8,10 @@
 /dataSources.local.xml
 
 # Custom
-/.idea
-/node_modules
+/**/.idea
+/**/node_modules
 /**/test.ts
 /**/modules.xml
 /**/misc.xml
+/**/gradle
+/**/.gradle
