@@ -1,5 +1,6 @@
 import { bubbleSort } from './bubble-sort';
-import { selectionSort } from './selection-sort';
+import { selectionSort, selectionSort_v2 } from './selection-sort';
+import { insertionSort } from './insertion-sort';
 
 describe('sorting', () => {
   const inputArrays = [
@@ -19,9 +20,27 @@ describe('sorting', () => {
     expect(output).toEqual(expected);
   });
 
-  it.each(inputArrays)('selection sort %p', (input: number[], expected: number[]) => {
+  describe('selection sort', () => {
+    it.each(inputArrays)('selection sort %p', (input: number[], expected: number[]) => {
+      // when
+      const output = selectionSort(input);
+
+      // expect
+      expect(output).toEqual(expected);
+    });
+
+    it.each(inputArrays)('selection sort v2 %p', (input: number[], expected: number[]) => {
+      // when
+      const output_v2 = selectionSort_v2(input);
+
+      // expect
+      expect(output_v2).toEqual(expected);
+    });
+  });
+
+  it.each(inputArrays)('insertion sort %p', (input: number[], expected: number[]) => {
     // when
-    const output = selectionSort(input);
+    const output = insertionSort(input);
 
     // expect
     expect(output).toEqual(expected);

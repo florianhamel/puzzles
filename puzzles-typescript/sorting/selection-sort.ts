@@ -1,3 +1,5 @@
+import { swap } from './utils';
+
 export function selectionSort(src: ReadonlyArray<number>): number[] {
   const a = [...src];
   let sortedList: number[] = [];
@@ -13,4 +15,22 @@ export function selectionSort(src: ReadonlyArray<number>): number[] {
   }
 
   return sortedList;
+}
+
+export function selectionSort_v2(src: ReadonlyArray<number>): number[] {
+  const a = [...src];
+  let jMin;
+  for (let i = 0; i < a.length - 1; i++) {
+    jMin = i;
+    for (let j = i + 1; j < a.length; j++) {
+      if (a[j] < a[jMin]) {
+        jMin = j;
+      }
+    }
+    if (jMin !== i) {
+      swap(i, jMin, a);
+    }
+  }
+
+  return a;
 }

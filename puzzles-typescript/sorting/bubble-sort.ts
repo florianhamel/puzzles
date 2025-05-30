@@ -1,3 +1,5 @@
+import { swap } from './utils';
+
 export function bubbleSort(src: ReadonlyArray<number>): number[] {
   let a = [...src];
   let checkNeeded = true;
@@ -6,9 +8,7 @@ export function bubbleSort(src: ReadonlyArray<number>): number[] {
     checkNeeded = false;
     for (let i = 0; i < n - 1; i++) {
       if (a[i] > a[i + 1]) {
-        const tmp = a[i + 1];
-        a[i + 1] = a[i];
-        a[i] = tmp;
+        swap(i , i + 1, a);
         checkNeeded = true;
       }
     }
