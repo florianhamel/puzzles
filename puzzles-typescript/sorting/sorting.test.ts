@@ -1,6 +1,7 @@
 import { bubbleSort } from './bubble-sort';
 import { selectionSort, selectionSort_v2 } from './selection-sort';
 import { insertionSort } from './insertion-sort';
+import { mergeSort } from './merge-sort';
 
 describe('sorting', () => {
   const inputArrays = [
@@ -44,5 +45,30 @@ describe('sorting', () => {
 
     // expect
     expect(output).toEqual(expected);
+  });
+
+  it.each(inputArrays)('merge sort %p', (input: number[], expected: number[]) => {
+    // when
+    const output = mergeSort(input);
+
+    // expect
+    expect(output).toEqual(expected);
+  });
+
+  it('hardcore sorting', () => {
+    const randomNumbers = Array.from({ length: 200000 }, () => Math.floor(Math.random() * 1000));
+    const sorted = randomNumbers.toSorted((a, b) => a - b);
+
+    // expect(bubbleSort(randomNumbers)).toEqual(sorted);
+    // expect(selectionSort(randomNumbers)).toEqual(sorted);
+    // expect(selectionSort_v2(randomNumbers)).toEqual(sorted);
+
+    console.time('insertion sort');
+    expect(insertionSort(randomNumbers)).toEqual(sorted);
+    console.timeEnd('insertion sort');
+
+    console.time('merge sort');
+    expect(mergeSort(randomNumbers)).toEqual(sorted);
+    console.timeEnd('merge sort');
   });
 });
