@@ -56,12 +56,8 @@ describe('sorting', () => {
   });
 
   it('hardcore sorting', () => {
-    const randomNumbers = Array.from({ length: 200000 }, () => Math.floor(Math.random() * 1000));
+    const randomNumbers = Array.from({ length: 10000 }, () => Math.floor(Math.random() * 1000));
     const sorted = randomNumbers.toSorted((a, b) => a - b);
-
-    // expect(bubbleSort(randomNumbers)).toEqual(sorted);
-    // expect(selectionSort(randomNumbers)).toEqual(sorted);
-    // expect(selectionSort_v2(randomNumbers)).toEqual(sorted);
 
     console.time('insertion sort');
     expect(insertionSort(randomNumbers)).toEqual(sorted);

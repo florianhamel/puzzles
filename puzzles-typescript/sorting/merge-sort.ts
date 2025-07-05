@@ -13,17 +13,12 @@ function merge(l1: ReadonlyArray<number>, l2: ReadonlyArray<number>): number[] {
   let mergedList = [];
   let i = 0;
   let j = 0;
-  while (i < l1.length && j < l2.length) {
-    if (l1[i] <= l2[j]) {
+  while (i < l1.length || j < l2.length) {
+    if (j >= l2.length ||  l1[i] <= l2[j]) {
       mergedList.push(l1[i++]);
     } else {
       mergedList.push(l2[j++]);
     }
-  }
-  if (i < l1.length) {
-    mergedList = [...mergedList, ...l1.slice(i, l1.length)];
-  } else if (j < l2.length) {
-    mergedList = [...mergedList, ...l2.slice(j, l2.length)];
   }
 
   return mergedList;
