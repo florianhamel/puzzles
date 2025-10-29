@@ -6,37 +6,22 @@ export function maxFrequency(nums: number[], k: number, numOperations: number): 
     .map((num) => ({ lower: num - k, higher: num + k }));
   let intersection: Range;
   let series: number[];
-  let apparitions: Map<number, number>;
   let maxFrequency = 0;
   let operationsApplied = 0;
   let i = 0;
   let j = 0;
   while (i < ranges.length) {
-    apparitions = new Map();
-    apparitions.set(nums[i], 0);
+    series = [];
+    series.push(nums[i]);
     intersection = ranges[i];
     j = i + 1;
-    console.log('nums[i]', nums[i]);
     while (j < ranges.length) {
-      if (apparitions.has(nums[j])) {
-        apparitions.set(nums[j], apparitions.get(nums[j]) + 1);
-      } else {
-        apparitions.set(nums[j], 0);
-      }
+      series.push(nums[j]);
       intersection = intersect(intersection, ranges[j]);
       if (intersection === null) {
         break;
       }
-      // il faut retirer le plus grand nombre de nombres égaux dans l'intersection
-      operationsApplied = series.length - sameNumbersInIntersection;
-      // console.log(
-      //   'series',
-      //   series,
-      //   ', intersection',
-      //   intersection,
-      //   ', operationsApplied',
-      //   operationsApplied,
-      // );
+      operationsApplied = series.length - getMaxCountOfNumberInIntersection(series, intersection);
       if (operationsApplied > numOperations) {
         break;
       }
@@ -48,6 +33,20 @@ export function maxFrequency(nums: number[], k: number, numOperations: number): 
     i++;
   }
   return maxFrequency;
+}
+
+function getMaxCountOfNumberInIntersection(series: number[], intersection: Range) {
+  const alreadyChecked = new Set<number>();
+  let max = 0;
+  for (const nb of series) {
+    if (!alreadyChecked.has(nb) && isIncludedIn(nb, intersection)) {
+      const count = series.filter(v => v === nb).length;
+      if (count > max) {
+        max = count;
+      }
+    }
+  }
+  return max;
 }
 
 function isIncludedIn(x: number, interval: Range) {
